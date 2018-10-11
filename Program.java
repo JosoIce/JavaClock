@@ -1,4 +1,5 @@
-public class Program{
+public class Program
+{
     public static void main(String[] args){
         Clock clock = new Clock();
 
@@ -6,7 +7,7 @@ public class Program{
             clock.Tick();
             System.out.println(clock.getOutputTime());
             try {
-                Thread.sleep(1000); //1000 milliseconds is one second.
+                Thread.sleep(10); //1000 milliseconds is one second.
             } catch(InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
@@ -30,13 +31,13 @@ class Clock
     public void Tick()
     {
         _sec.Increment();
-        //System.out.println("====TEST====");
-        if (_sec.getValue() == "60")
+        //System.out.println(_sec.getValue() == "60");
+        if (_sec.getValue().equals("60"))
         {
             _min.Increment();
             _sec.Reset();
 
-            if (_min.getValue() == "60")
+            if (_min.getValue().equals("60"))
             {
                 _hour.Increment();
                 _min.Reset();
@@ -86,8 +87,16 @@ class Counter
 
     public String getValue()
     {
-        String intToString = Integer.toString(_count);
-        return intToString;
+        if (_count < 10)
+        {
+            String intToString = Integer.toString(_count);
+            return "0" + intToString;
+        }
+        else
+        {
+            String intToString = Integer.toString(_count);
+            return intToString;
+        }
     }
 
     public int Increment()
